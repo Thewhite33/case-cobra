@@ -1,18 +1,26 @@
-const { createUploadthing } = require("uploadthing/next");
-const { UploadThingError } = require("uploadthing/server");
+import { createUploadthing } from 'uploadthing/next';
+import { z } from 'zod';
+import sharp from 'sharp';
 
 const f = createUploadthing();
 
-const auth = (req) => ({ id: "fakeId" });
-const ourFileRouter = {
-    imageUploader: f({ image: { maxFileSize: "4MB" } })
-        .middleware(async ({ req }) => {
-            const user = await auth(req);
-            if (!user) throw new UploadThingError("Unauthorized");
-            return { userId: user.id };
+export const ourFileRouter = {
+    imageUploader: f({ image: { maxFileSize: '4MB' } })
+        .input(z.object({ configId: z.string().optional() }))
+        .middleware(async ({ input }) => {
+            return { input };
         })
         .onUploadComplete(async ({ metadata, file }) => {
-            return { uploadedBy: metadata.userId };
+            try {
+                const { configId } = metadata.input;
+                console.log('Upload complete metadata:', metadata);
+                console.log('File:', file);
+                return { configId };
+            }catch (error) {
+                console.error('Error in onUploadComplete:', error);
+                throw error;
+            }
         }),
 };
-module.exports = { ourFileRouter };
+
+export const OurFileRouter = ourFileRouter;
