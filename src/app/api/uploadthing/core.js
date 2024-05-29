@@ -1,6 +1,7 @@
 import { createUploadthing } from 'uploadthing/next';
 import { z } from 'zod';
 import sharp from 'sharp';
+import { db } from '@/db';
 
 const f = createUploadthing();
 
@@ -13,9 +14,33 @@ export const ourFileRouter = {
         .onUploadComplete(async ({ metadata, file }) => {
             try {
                 const { configId } = metadata.input;
-                console.log('Upload complete metadata:', metadata);
-                console.log('File:', file);
-                return { configId };
+                const res = await fetch(file.url)
+                const buffer = await res.arrayBuffer()
+
+                const imgMetadata = await sharp(buffer).metadata()
+                const {width,height} = imgMetadata
+
+                if(!configId){
+                    const configuration = await db.configuration.create({
+                        data:{
+                            imageUrl: file.url,
+                            height : height || 500,
+                            width : width || 500,
+                        }
+                    })
+                    //dekhna
+                    return {configId:configuration.id}
+                } else{
+                    const updatedConfiguration = await db.configuration.update({
+                        where:{
+                            id:configId
+                        },
+                        data:{
+                            croppedImageUrl:file.url
+                        }
+                    })
+                    return {configId:updatedConfiguration.id}
+                }
             }catch (error) {
                 console.error('Error in onUploadComplete:', error);
                 throw error;
@@ -24,3 +49,6 @@ export const ourFileRouter = {
 };
 
 export const OurFileRouter = ourFileRouter;
+
+//https://www.youtube-nocookie.com/embed/SG82Aqcaaa0?playlist=SG82Aqcaaa0&autoplay=1&iv_load_policy=3&loop=1&start=
+//3.47.00

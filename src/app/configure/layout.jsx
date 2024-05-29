@@ -1,9 +1,13 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
+import Steps from '@/components/Steps'
 import React from 'react'
 
 const layout = ({ children }) => {
     return (
-        <MaxWidthWrapper className='flex-1 flex flex-col'>{children}</MaxWidthWrapper>
+        <MaxWidthWrapper className='flex-1 flex flex-col'>
+            <Steps/>
+            {children}
+        </MaxWidthWrapper>
     )
 }
 

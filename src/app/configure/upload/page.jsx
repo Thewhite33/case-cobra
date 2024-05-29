@@ -63,7 +63,7 @@ const page = () => {
                                             <p>
                                                 <span className='font-semibold'>
                                                     Drop file
-                                                </span>
+                                                </span>{' '}
                                                 to upload
                                             </p>
                                             :
@@ -85,8 +85,3 @@ const page = () => {
 }
 
 export default page
-
-
-//3.07.00
-//https://www.youtube-nocookie.com/embed/SG82Aqcaaa0?playlist=SG82Aqcaaa0&autoplay=1&iv_load_policy=3&loop=1&start=
-//https://github.com/joschan21/casecobra
