@@ -16,10 +16,8 @@ export const ourFileRouter = {
                 const { configId } = metadata.input;
                 const res = await fetch(file.url)
                 const buffer = await res.arrayBuffer()
-
                 const imgMetadata = await sharp(buffer).metadata()
                 const {width,height} = imgMetadata
-
                 if(!configId){
                     const configuration = await db.configuration.create({
                         data:{
@@ -28,7 +26,6 @@ export const ourFileRouter = {
                             width : width || 500,
                         }
                     })
-                    //dekhna
                     return {configId:configuration.id}
                 } else{
                     const updatedConfiguration = await db.configuration.update({
@@ -49,6 +46,3 @@ export const ourFileRouter = {
 };
 
 export const OurFileRouter = ourFileRouter;
-
-//https://www.youtube-nocookie.com/embed/SG82Aqcaaa0?playlist=SG82Aqcaaa0&autoplay=1&iv_load_policy=3&loop=1&start=
-//3.47.00
