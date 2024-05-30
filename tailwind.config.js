@@ -78,13 +78,18 @@ module.exports = {
           to:{
             opacity:"1"
           }
+        },
+        flashing:{
+          "0% ,100%" : {opacity:'0.2'},
+          "20%" : {opacity:"1"}
         }
       },
       animation: {
         "marquee":"marquee var(--marquee-duration) linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in":"fade-in 0.5s linear forwards"
+        "fade-in":"fade-in 0.5s linear forwards",
+        "flashing":"flashing 1.4s infinite linear"
       },
     },
   },

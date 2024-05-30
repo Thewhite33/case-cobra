@@ -6,7 +6,7 @@ import React from 'react'
 const STEPS = [
     {
         name: 'Step 1: Add image',
-        description: 'Choose and image for your case',
+        description: 'Choose an image for your case',
         url: '/upload'
     },
     {
