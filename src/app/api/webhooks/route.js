@@ -27,30 +27,30 @@ export async function POST(req){
             if(!userId || !orderId) {
                 throw new Error("Invalid request metadata")
             }
-            const billingAddress = session.customer_details.address
-            const shippingAddress = session.shipping_details.address
+            const BillingAddress = session.customer_details.address
+            const ShippingAddress = session.shipping_details.address
 
             await db.order.update({
                 where:{id:orderId},
                 data:{isPaid:true,
-                    shippingAddress:{
+                    ShippingAddress:{
                         create:{
                             name:session.customer_details.name,
-                            city:shippingAddress.city,
-                            country:shippingAddress.country,
-                            postalCode:shippingAddress.postal_code,
-                            street:shippingAddress.line1,
-                            state:shippingAddress.state
+                            city:ShippingAddress.city,
+                            country:ShippingAddress.country,
+                            postalCode:ShippingAddress.postal_code,
+                            street:ShippingAddress.line1,
+                            state:ShippingAddress.state
                         }
                 },
-                billingAddressAddress:{
+                BillingAddress:{
                     create:{
                         name:session.customer_details.name,
-                        city:billingAddress.city,
-                        country:billingAddress.country,
-                        postalCode:billingAddress.postal_code,
-                        street:billingAddress.line1,
-                        state:billingAddress.state
+                        city:BillingAddress.city,
+                        country:BillingAddress.country,
+                        postalCode:BillingAddress.postal_code,
+                        street:BillingAddress.line1,
+                        state:BillingAddress.state
                     }
                 }
             }
