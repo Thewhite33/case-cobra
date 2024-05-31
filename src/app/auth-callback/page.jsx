@@ -5,7 +5,7 @@ import { getAuthStatus } from './actions'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 
-const page = () => {
+const Page = () => {
     const [configId,setConfigId] = useState(null)
     const router = useRouter()
     useEffect(()=>{
@@ -37,4 +37,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

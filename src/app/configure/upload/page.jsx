@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState, useTransition } from 'react'
 import Dropzone from 'react-dropzone'
 
-const page = () => {
+const Page = () => {
     const { toast } = useToast()
     const [isDragOver, setIsDragOver] = useState(false)
     const [isPending, startTransition] = useTransition()
@@ -84,4 +84,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
