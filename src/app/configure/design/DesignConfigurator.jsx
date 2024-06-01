@@ -89,7 +89,7 @@ const DesignConfigurator = ({ configId, imageUrl, imageDimensions }) => {
             })
         }
     }
-    const {mutate:saveConfig} = useMutation({
+    const {mutate:saveConfig,isPending} = useMutation({
         mutationKey:["save-config"], //cache
         mutationFn: async (args) => {
             await Promise.all([saveConfiguration(),_saveConfig(args)])
@@ -228,7 +228,11 @@ const DesignConfigurator = ({ configId, imageUrl, imageDimensions }) => {
                     <div className='w-full h-full flex justify-end items-center'>
                         <div className='w-full flex gap-6 items-center'>
                             <p className='font-medium whitespace-nowrap'>{formatPrice(BASE_PRICE + options.finish.price + options.material.price)}</p>
-                            <Button onClick={() => saveConfig({
+                            <Button 
+                            isLoading={isPending}
+                            disabled={isPending}
+                            loadingText="Saving"
+                            onClick={() => saveConfig({
                                 configId,
                                 color:options.colors.value,
                                 finish:options.finish.value,
